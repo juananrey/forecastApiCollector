@@ -1,0 +1,20 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #foobar
+services:
+    forecast.controller.main_controller:
+         class: ForecastBundle\Controller\MainController
+         arguments: ['@forecast.service.api_service']
+
+    forecast.service.api_service:
+        class: ForecastBundle\Service\ForecastApiService
+        arguments: ['@forecast.handler.request_handler', '@forecast.builder.response_builder', '%forecast_io_concurrent_requests_number%']
+
+    forecast.handler.request_handler:
+        class: ForecastBundle\Handler\GuzzleRequestHandler
+        arguments: ['%forecast_io_api_url%', '%forecast_io_api_key%']
+
+    forecast.builder.response_builder:
+        class: ForecastBundle\Builder\GuzzleResponseBuilder
+        arguments: ['%forecast_io_allow_failed_queries%']

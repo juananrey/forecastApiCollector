@@ -1,0 +1,3 @@
+app:
+    resource: '@ForecastBundle/Controller/'
+    type: annotation
