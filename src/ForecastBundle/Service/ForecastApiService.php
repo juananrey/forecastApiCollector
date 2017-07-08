@@ -22,7 +22,7 @@ class ForecastApiService
     {
         $endpoints = [];
         foreach ($this->getUnixTimestampsForDays($startingDay) as $unixTimestamp) {
-            $endpoints[] = $latitude.','.$longitude.','.$unixTimestamp;
+            $endpoints[] = $latitude.','.$longitude.','.$unixTimestamp.'?units=si';
         }
 
         $jsonResponses = $this->requestHandler->getConcurrentResponses('GET', $endpoints, $this->concurrentRequestsNumber);
