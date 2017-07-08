@@ -55,3 +55,26 @@ Please note two more things that you can play with in your `app/config/parameter
  If you want to halt in case any error happen while querying Forecast API, simply set this flag to `false`.
 
 
+Responses sample
+----------------
+
+```
+GET http://localhost:8000/v1/forecast/latitude/{latitude}/longitude/{longitude}?daysAgo=4
+```
+
+```json
+{
+    "_metadata": {
+        "totalCount": 4
+    },
+    "forecasts": {
+        "08-07-2017": {},
+        "07-07-2017": {},
+        "06-07-2017": {},
+        "05-07-2017": {}
+    }
+}
+```
+
+All the information inside these dates, would be exactly similar as provided for the [Forecast.io](http://forecast.io)
+in the [Time machine request](https://darksky.net/dev/docs/time-machine)
