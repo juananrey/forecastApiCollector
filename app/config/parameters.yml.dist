@@ -18,7 +18,7 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    forecast_io_api_url: https://jsonplaceholder.typicode.com/posts/
+    forecast_io_api_url: https://api.darksky.net/forecast
     forecast_io_api_key: ~
 
     forecast_io_concurrent_requests_number: 30
