@@ -53,7 +53,14 @@ Please note two more things that you can play with in your `app/config/parameter
  - `forecast_io_concurrent_requests_number` : Tweaks the number of concurrent requests that the API wrapper can launch.
  - `forecast_io_allow_failed_queries` : By default, if something goes wrong in an API call we simply skip such response.
  If you want to halt in case any error happen while querying Forecast API, simply set this flag to `false`.
+ You will receive a JSON response with the following format if something went wrong:
 
+ ```json
+ {
+    "errorCode": 403,
+    "errorMessage": "Forbidden"
+ }
+```
 
 Responses sample
 ----------------
