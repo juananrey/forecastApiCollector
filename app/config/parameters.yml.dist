@@ -23,4 +23,4 @@ parameters:
 
     forecast_io_concurrent_requests_number: 30
     # This parameter determines if we simply skip failures while retrieving from ForecastAPI or throw exceptions instead
-    forecast_io_allow_failed_queries: true
+    forecast_io_allow_failed_queries: false

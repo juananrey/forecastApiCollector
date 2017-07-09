@@ -4,6 +4,7 @@ namespace ForecastBundle\Service;
 
 use ForecastBundle\Builder\ResponseBuilderInterface;
 use ForecastBundle\Handler\RequestHandlerInterface;
+use ForecastBundle\Exception\ForecastApiException;
 
 class ForecastApiService
 {
@@ -25,9 +26,18 @@ class ForecastApiService
             $endpoints[] = $latitude.','.$longitude.','.$unixTimestamp.'?units=si';
         }
 
-        $jsonResponses = $this->requestHandler->getConcurrentResponses('GET', $endpoints, $this->concurrentRequestsNumber);
+        try {
+            $jsonResponses = $this->requestHandler->getConcurrentResponses('GET', $endpoints, $this->concurrentRequestsNumber);
+            $responses = $this->responseBuilder->convertJsonResponsesToArray($jsonResponses);
 
-        $responses = $this->responseBuilder->convertJsonResponsesToArray($jsonResponses);
+        } catch (ForecastApiException $exception){
+            $result = array (
+                'errorCode' => $exception->getStatusCode(),
+                'errorMessage' => $exception->getMessage(),
+            );
+
+            return $result;
+        }
 
         return $this->formatApiResponses($responses);
     }
