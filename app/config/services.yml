@@ -4,8 +4,13 @@ parameters:
     #foobar
 services:
     forecast.controller.main_controller:
-         class: ForecastBundle\Controller\MainController
-         arguments: ['@forecast.service.api_service']
+        class: ForecastBundle\Controller\MainController
+        arguments: ['@forecast.service.api_service']
+
+    forecast.listener.exception_listener:
+        class: ForecastBundle\Listener\ExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
 
     forecast.service.api_service:
         class: ForecastBundle\Service\ForecastApiService

@@ -2,7 +2,8 @@
 
 namespace ForecastBundle\Exception;
 
-class ForecastApiException extends \Exception
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class ForecastApiException extends HttpException
 {
-    protected $message = 'There was an error retrieving forecast data. Please try again later';
 }

@@ -3,6 +3,7 @@
 namespace ForecastBundle\Builder;
 
 use ForecastBundle\Exception\ForecastApiException;
+use GuzzleHttp\Exception\RequestException;
 
 class GuzzleResponseBuilder implements ResponseBuilderInterface
 {
@@ -18,7 +19,7 @@ class GuzzleResponseBuilder implements ResponseBuilderInterface
         $result = [];
         foreach ($responses as $response) {
             if ($response instanceof \Exception) {
-                $this->handleResponseException();
+                $this->handleResponseException($response);
 
             } else {
                 $result[] = json_decode($response->getBody(), true);
@@ -28,10 +29,14 @@ class GuzzleResponseBuilder implements ResponseBuilderInterface
         return $result;
     }
 
-    private function handleResponseException()
+    private function handleResponseException(RequestException $response)
     {
         if (false === $this->allowFailedQueries) {
-            throw new ForecastApiException();
+            $exceptionResponse = $response->getResponse();
+            $statusCode = $exceptionResponse->getStatusCode();
+            $messsage = $exceptionResponse->getReasonPhrase();
+
+            throw new ForecastApiException($statusCode, $messsage);
         }
     }
 }
